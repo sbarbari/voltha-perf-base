@@ -9,7 +9,7 @@ The results of the tests will be used as a capability baseline for future releas
 ## 2. Test Environment
 
 All virtual machines are deployed on a single physical server and the installation is done using a modified instance of 
-the voltha-k8s-playground (see `Installation Details / Virtual Environment Installation` for more details).
+the voltha-k8s-playground (see `5.1 Virtual Environment Installation` for more details).
 The following diagram describes the layout used for the test environment.
 
 ---
@@ -22,7 +22,7 @@ The following diagram describes the layout used for the test environment.
 
 The following packages were used to perform the different test scenarios.  All VOLTHA images were retrieved from the 
 voltha docker hub repository, aside from the voltha/voltha-voltha image which was modified as explained in
-`Installation Details / Disable Alarms and Performance Metrics`.
+`5.3 Disable Alarms and Performance Metrics`.
 
 ---
 
@@ -75,7 +75,7 @@ additional strain on the system.
     
 ---
 
-### 3.1 Scenario A: Saturation point of a system with ETCD key/value store
+### 3.1 Scenario A: Saturation point of a system with ETCD 
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -88,11 +88,11 @@ This test uses `etcd` as the key/value store using only the container disk as st
 #### 3.1.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2 Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
-    * See `Installation Details / Optimize Etcd cluster`.
+    * See `5.4 Optimize Etcd cluster`.
 
 ---
 
@@ -160,7 +160,7 @@ saturation after creating `2338` devices and then containers started to degrade.
 
 ---
 
-### 3.2 Scenario B: Saturation point of a system with ETCD key/value store + persistent volume
+### 3.2 Scenario B: Saturation point of a system with ETCD & PV
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -173,13 +173,13 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
 #### 3.2.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2 Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
-    * See `Installation Details / Optimize Etcd cluster`.
+    * See `5.4 Optimize Etcd cluster`.
 * Add persistent volume support to `etcd` cluster configuration
-    * See `Installation Details / Add Persistent Volume to Etcd Cluster`.
+    * See `5.5 Add Persistent Volume to Etcd Cluster`.
 
 ---
 
@@ -217,6 +217,8 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
     +----------------+------------------+---------+---------+-----------+-----------+------------+
 ```
 
+---
+
 #### 3.2.3 Observations
 
 The creation of devices was constant and it gradually depleted the available memory.  The system reached
@@ -252,7 +254,7 @@ saturation after creating `1820` devices and when containers started to degrade.
 
 ---
 
-### 3.3 Scenario C: Saturation point of a system with Consul key/value store
+### 3.3 Scenario C: Saturation point of a system with Consul
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -265,9 +267,9 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 #### 3.3.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2 Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 
 ---
 
@@ -336,7 +338,7 @@ but containers were re-spawned a few times and the system reached saturation aft
 
 ---
 
-### 3.4 Scenario D: Recovery of VCORE on a system at 80% loaded state (ETCD & PV)
+### 3.4 Scenario D: Recovery of VCORE with a 80% loaded state (ETCD & PV)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a 80% loaded state__, i.e. __80%__ of the saturation point.  Once the system has reached the loaded state, a 
@@ -351,13 +353,13 @@ storage managed by `glusterfs`.
 #### 3.4.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2 Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
-    * See `Installation Details / Optimize Etcd cluster`.
+    * See `5.4 Optimize Etcd cluster`.
 * Add persistent volume support to `etcd` cluster configuration
-    * See `Installation Details / Add Persistent Volume to Etcd Cluster`.
+    * See `5.5 Add Persistent Volume to Etcd Cluster`.
 
 ---
 
@@ -402,7 +404,7 @@ of the behaviour that we are experiencing.
 
 ---
 
-### 3.5 Scenario E: Recovery of VCORE on a system at 60% loaded state (ETCD & PV)
+### 3.5 Scenario E: Recovery of VCORE with a 60% loaded state (ETCD & PV)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a 60% loaded state__, i.e. __60%__ of the saturation point.  Once the system has reached the loaded state, a __non-leader
@@ -417,13 +419,13 @@ storage managed by `glusterfs`.
 #### 3.5.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2 Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
-    * See `Installation Details / Optimize Etcd cluster`.
+    * See `5.4 Optimize Etcd cluster`.
 * Add persistent volume support to `etcd` cluster configuration
-    * See `Installation Details / Add Persistent Volume to Etcd Cluster`.
+    * See `5.5 Add Persistent Volume to Etcd Cluster`.
 
 ---
 
@@ -469,7 +471,7 @@ period, requests to the VOLTHA API to retrieve the device list remained unrespon
 
 ---
 
-### 3.6 Scenario F: Recovery of VCORE on a system at 80% loaded state (Consul)
+### 3.6 Scenario F: Recovery of VCORE with a 80% loaded state (Consul)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a loaded state__, i.e. __80%__ of the saturation point.  Once the system has reached the loaded state, a __non-leader
@@ -483,9 +485,9 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 #### 3.6.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2 Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 
 ---
 
@@ -544,15 +546,15 @@ storage managed by `glusterfs`.
 #### 3.7.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2  Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
-    * See `Installation Details / Optimize Etcd cluster`.
+    * See `5.4 Optimize Etcd cluster`.
 * Add persistent volume support to `etcd` cluster configuration
-    * See `Installation Details / Add Persistent Volume to Etcd Cluster`.
+    * See `5.5 Add Persistent Volume to Etcd Cluster`.
 * Add KV transaction period information.  
-    * See `Installation Details / Add Logs for Average KV Transaction Time`.     
+    * See `5.6 Add Logs for Average KV Transaction Time`.     
 
 ---
 
@@ -580,11 +582,11 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 #### 3.8.1 Configuration
 
 * Reduce logging of events in `vcore`.
-    * See `Installation Details / Decrease Logging of Events`.    
+    * See `5.2 Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
-    * See `Installation Details / Disable Alarms and PMs`.     
+    * See `5.3 Disable Alarms and PMs`.     
 * Add KV transaction period information.  
-    * See `Installation Details / Add Logs for Average KV Transaction Time`.     
+    * See `5.6 Add Logs for Average KV Transaction Time`.     
    
 ---
 
@@ -771,7 +773,7 @@ The following steps will guide you through the installation of glusterfs and the
 to add a persistent volume.
 
 The virtual cluster should already have allocated storage as per the instructions under 
-`Installation Details / Virtual Environment Installation`.  You can verify if your system was properly configured by issuing 
+`5.1Virtual Environment Installation`.  You can verify if your system was properly configured by issuing 
 the following command.
 
 ---
