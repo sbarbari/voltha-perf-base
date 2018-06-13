@@ -87,7 +87,7 @@ This test uses `etcd` as the key/value store using only the container disk as st
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
     * See `5.4 Optimize Etcd cluster`.
@@ -172,11 +172,11 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
     * See `5.4 Optimize Etcd cluster`.
-* Add persistent volume support to `etcd` cluster configuration
+* Add persistent volume to `etcd` cluster
     * See `5.5 Add Persistent Volume to Etcd Cluster`.
 
 ---
@@ -266,7 +266,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 
 ---
@@ -352,11 +352,11 @@ storage managed by `glusterfs`.
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
     * See `5.4 Optimize Etcd cluster`.
-* Add persistent volume support to `etcd` cluster configuration
+* Add persistent volume to `etcd` cluster
     * See `5.5 Add Persistent Volume to Etcd Cluster`.
 
 ---
@@ -418,11 +418,11 @@ storage managed by `glusterfs`.
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
     * See `5.4 Optimize Etcd cluster`.
-* Add persistent volume support to `etcd` cluster configuration
+* Add persistent volume to `etcd` cluster
     * See `5.5 Add Persistent Volume to Etcd Cluster`.
 
 ---
@@ -484,7 +484,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 
 ---
@@ -545,11 +545,11 @@ storage managed by `glusterfs`.
 
 * Reduce logging of events in `vcore`.
     * See `5.2  Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
     * See `5.4 Optimize Etcd cluster`.
-* Add persistent volume support to `etcd` cluster configuration
+* Add persistent volume to `etcd` cluster 
     * See `5.5 Add Persistent Volume to Etcd Cluster`.
 * Add KV transaction period information.  
     * See `5.6 Add Logs for Average KV Transaction Time`.     
@@ -581,7 +581,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
-* Disable the generation of alarms and performance metrics in `vcore`.  
+* Disable alarms and metrics in `vcore`.  
     * See `5.3 Disable Alarms and PMs`.     
 * Add KV transaction period information.  
     * See `5.6 Add Logs for Average KV Transaction Time`.     
