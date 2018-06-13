@@ -1,4 +1,4 @@
-## 1. Overview
+## 1 - Overview
 
 This document provides information on performance tests conducted on the VOLTHA 1.3 platform.
 
@@ -6,7 +6,7 @@ The results of the tests will be used as a capability baseline for future releas
 
 ---
 
-## 2. Test Environment
+## 2 - Test Environment
 
 All virtual machines are deployed on a single physical server and the installation is done using a modified instance of 
 the voltha-k8s-playground (see `5.1 Virtual Environment Installation` for more details).
@@ -18,7 +18,7 @@ The following diagram describes the layout used for the test environment.
 
 ---
 
-### 2.1 Container images
+### 2.1 - Container images
 
 The following packages were used to perform the different test scenarios.  All VOLTHA images were retrieved from the 
 voltha docker hub repository, aside from the voltha/voltha-voltha image which was modified as explained in
@@ -63,7 +63,7 @@ voltha docker hub repository, aside from the voltha/voltha-voltha image which wa
 
 ---
 
-## 3. Test Scenarios
+## 3 - Test Scenarios
 
 This section describes the different scenarios that have been executed.
 
@@ -75,7 +75,7 @@ additional strain on the system.
     
 ---
 
-### 3.1 Scenario A: Saturation point of a system with ETCD 
+### 3.1 - Scenario A: Saturation point of a system with ETCD 
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -85,7 +85,7 @@ This test uses `etcd` as the key/value store using only the container disk as st
 
 ---
 
-#### 3.1.1 Configuration
+#### 3.1.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
@@ -96,7 +96,7 @@ This test uses `etcd` as the key/value store using only the container disk as st
 
 ---
 
-#### 3.1.2 Deployed containers
+#### 3.1.2 - Deployed containers
 
 ```
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
@@ -125,7 +125,7 @@ This test uses `etcd` as the key/value store using only the container disk as st
 
 ---
 
-#### 3.1.3 Observations
+#### 3.1.3 - Observations
 
 The creation of devices was constant and it gradually depleted the available memory.  The system reached
 saturation after creating `2338` devices and then containers started to degrade.
@@ -160,7 +160,7 @@ saturation after creating `2338` devices and then containers started to degrade.
 
 ---
 
-### 3.2 Scenario B: Saturation point of a system with ETCD & PV
+### 3.2 - Scenario B: Saturation point of a system with ETCD & PV
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -170,7 +170,7 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
 
 ---
 
-#### 3.2.1 Configuration
+#### 3.2.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
@@ -183,7 +183,7 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
 
 ---
 
-#### 3.2.2 Deployed containers
+#### 3.2.2 - Deployed containers
 
 ```
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
@@ -219,7 +219,7 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
 
 ---
 
-#### 3.2.3 Observations
+#### 3.2.3 - Observations
 
 The creation of devices was constant and it gradually depleted the available memory.  The system reached
 saturation after creating `1820` devices and when containers started to degrade.
@@ -254,7 +254,7 @@ saturation after creating `1820` devices and when containers started to degrade.
 
 ---
 
-### 3.3 Scenario C: Saturation point of a system with Consul
+### 3.3 - Scenario C: Saturation point of a system with Consul
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -264,7 +264,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 ---
 
-#### 3.3.1 Configuration
+#### 3.3.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
@@ -273,7 +273,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 ---
 
-#### 3.3.2 Deployed containers
+#### 3.3.2 - Deployed containers
 
 ```
     NAME                           READY     STATUS    RESTARTS   AGE       IP               NODE
@@ -301,7 +301,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 ---
 
-#### 3.3.3 Observations
+#### 3.3.3 - Observations
 
 The creation of devices was constant at the beginning but gradually had larger gaps between creation. This is likely caused
 by the consul db snapshots occurring throughout the execution.  The system started to degrade after creating `1641` devices,
@@ -338,7 +338,7 @@ but containers were re-spawned a few times and the system reached saturation aft
 
 ---
 
-### 3.4 Scenario D: Recovery of VCORE with a 80% loaded state (ETCD & PV)
+### 3.4 - Scenario D: Recovery of VCORE with a 80% loaded state (ETCD & PV)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a 80% loaded state__, i.e. __80%__ of the saturation point.  Once the system has reached the loaded state, a 
@@ -350,7 +350,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.4.1 Configuration
+#### 3.4.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
@@ -363,7 +363,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.4.2 Deployed containers
+#### 3.4.2 - Deployed containers
 
 ```
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
@@ -392,7 +392,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.4.3 Observations
+#### 3.4.3 - Observations
 
 The system was stable after creating the devices.  As soon as a VCORE was terminated, the communication
 with the etcd cluster started to degrade.  The `etcd` instances failed one by one and the KV cluster
@@ -404,7 +404,7 @@ of the behaviour that we are experiencing.
 
 ---
 
-### 3.5 Scenario E: Recovery of VCORE with a 60% loaded state (ETCD & PV)
+### 3.5 - Scenario E: Recovery of VCORE with a 60% loaded state (ETCD & PV)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a 60% loaded state__, i.e. __60%__ of the saturation point.  Once the system has reached the loaded state, a __non-leader
@@ -416,7 +416,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.5.1 Configuration
+#### 3.5.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
@@ -429,7 +429,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.5.2 Deployed containers
+#### 3.5.2 - Deployed containers
 
 ```
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
@@ -458,7 +458,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.5.3 Observations
+#### 3.5.3 - Observations
 
 The system was stable after creating the devices.  A VCORE instance was terminated, it re-spawned and started 
 recovering its data from the etcd cluster.  While the recovery was in progress, one of the etcd instance showed 
@@ -471,7 +471,7 @@ period, requests to the VOLTHA API to retrieve the device list remained unrespon
 
 ---
 
-### 3.6 Scenario F: Recovery of VCORE with a 80% loaded state (Consul)
+### 3.6 - Scenario F: Recovery of VCORE with a 80% loaded state (Consul)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a loaded state__, i.e. __80%__ of the saturation point.  Once the system has reached the loaded state, a __non-leader
@@ -482,7 +482,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 ---
 
-#### 3.6.1 Configuration
+#### 3.6.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
@@ -491,7 +491,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 ---
 
-#### 3.6.2 Deployed containers
+#### 3.6.2 - Deployed containers
 
 ```
     NAME                           READY     STATUS    RESTARTS   AGE       IP               NODE
@@ -519,7 +519,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 ---
 
-#### 3.6.3 Observations
+#### 3.6.3 - Observations
 
 The system is stable after creating the devices.  When a VCORE is terminated, the consul cluster remains stable and
 calls to the VOLTHA API to retrieve the list of devices are returning 2/3 of the created devices, which is expected
@@ -531,7 +531,7 @@ with the current design.  The system fully recovers after approximately 2 minute
   
 ---
 
-### 3.7 Scenario G: Average KV Transaction Period (ETCD & PV)
+### 3.7 - Scenario G: Average KV Transaction Period (ETCD & PV)
 
 This test creates and enables simulated_olt devices against a VOLTHA deployment until it reaches 
 a 80% loaded state, i.e. 80% of the saturation point, and calculates the average time required to perform
@@ -543,7 +543,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.7.1 Configuration
+#### 3.7.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2  Decrease Logging of Events`.    
@@ -558,7 +558,7 @@ storage managed by `glusterfs`.
 
 ---
 
-#### 3.7.2 Observations
+#### 3.7.2 - Observations
 
 The transaction time is quite stable.  It increases slightly and equally for each VCORE instances.
 
@@ -568,7 +568,7 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 
 ---
 
-### 3.8 Scenario H: Average KV Transaction Period (Consul)
+### 3.8 - Scenario H: Average KV Transaction Period (Consul)
 
 This test creates and enables simulated_olt devices against a VOLTHA deployment until it reaches 
 a 80% loaded state, i.e. 80% of the saturation point, and calculates the average time required to perform
@@ -579,7 +579,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 ---
 
-#### 3.8.1 Configuration
+#### 3.8.1 - Configuration
 
 * Reduce logging of events in `vcore`.
     * See `5.2 Decrease Logging of Events`.    
@@ -590,7 +590,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
    
 ---
 
-#### 3.8.2 Observations
+#### 3.8.2 - Observations
 
 The transaction time is quite stable.  It increases slightly and equally for each VCORE instances.
 
@@ -600,7 +600,7 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 
 ---
 
-## 4. General Observations
+## 4 - General Observations
 
 * An ETCD cluster presents reliability issues when retrieving large amounts of data from a system in a loaded state 
     * Such as when a VCORE is re-spawned.
@@ -617,11 +617,11 @@ The transaction time is quite stable.  It increases slightly and equally for eac
     
 ---
 
-## 5. Installation Details
+## 5 - Installation Details
 
 ---
 
-### 5.1 Virtual Environment Installation
+### 5.1 - irtual Environment Installation
 
 The virtual environment was deployed using the [Voltha Kubernetes Playgrounds](https://github.com/ciena/voltha-k8s-playground).
 
@@ -682,7 +682,7 @@ Once you have applied the modifications, you can bring up the cluster as per the
 
 ---
 
-### 5.2 Decrease Logging of Events
+### 5.2 - Decrease Logging of Events
 
 Many of the VOLTHA containers were implemented with an option to control the logging of events.
 
@@ -709,7 +709,7 @@ the container to only log error events.  Below is an example to reduce logging i
 
 ---
 
-### 5.3 Disable Alarms and Performance Metrics
+### 5.3 - Disable Alarms and Performance Metrics
 
 In order to reduce IO congestion, the simulated_olt adapter can be modified to exclude the generation of alarms and 
 performance metrics.  This can be done by applying the following changes and re-building the voltha/voltha-voltha image.
@@ -734,7 +734,7 @@ performance metrics.  This can be done by applying the following changes and re-
 
 ---
 
-### 5.4 Optimize Etcd Cluster
+### 5.4 - Optimize Etcd Cluster
 
 The default configuration of an `etcd` container instance is not optimized to achieve the full potential of the system.
 The following items need to be applied to ensure a proper deployment and avoid premature failures of the etcd cluster.
@@ -765,7 +765,7 @@ The following items need to be applied to ensure a proper deployment and avoid p
 
 ---
 
-### 5.5 Add Persistent Volume to Etcd Cluster
+### 5.5 - Add Persistent Volume to Etcd Cluster
 
 Adding persistent volume support to an etcd cluster requires some configurations of your virtual cluster.
 
@@ -975,7 +975,7 @@ Adjust the `resturl` parameter as per the information returned after deployment.
 
 ---
 
-### 5.6 Add Logs for Average KV Transaction Time
+### 5.6 - Add Logs for Average KV Transaction Time
 
 In order to collect details on the average time required to perform a `put` operation to a key/value store,
 the following changes need to be applied to the `voltha` core implementation.  You will need to rebuild the 
