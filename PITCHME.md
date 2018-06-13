@@ -4,6 +4,8 @@ This document provides information on performance tests conducted on the VOLTHA 
 
 The results of the tests will be used as a capability baseline for future releases.
 
+---
+
 ## 2. Test Environment
 
 All virtual machines are deployed on a single physical server and the installation is done using a modified instance of 
@@ -14,12 +16,15 @@ The following diagram describes the layout used for the test environment.
 
 ![Performance Test Environment](images/perf-test-layout.png)
 
+---
+
 ### 2.1 Container images
 
 The following packages were used to perform the different test scenarios.  All VOLTHA images were retrieved from the 
 voltha docker hub repository, aside from the voltha/voltha-voltha image which was modified as explained in
 `Installation Details / Disable Alarms and Performance Metrics`.
 
+---
 
 ```
     voltha/voltha-ponsim                                             v1.3 
@@ -64,11 +69,8 @@ This section describes the different scenarios that have been executed.
 
 * The performance test scripts are executed from the host server, i.e. outside of the virtual cluster, to avoid
 additional strain on the system.  
-
 * The VOLTHA system is deployed with the minimal set of components required by the individual scenarios
-
 * Logging is kept to a minimum to reduce IO congestion (e.g. errors only)
-
 * Any additional settings will be described in the individual scenarios.
     
 ---
@@ -81,6 +83,8 @@ responding or some other failure occurs and prevents any devices from being adde
 
 This test uses `etcd` as the key/value store using only the container disk as storage.
 
+---
+
 #### 3.1.1 Configuration
 
 * Reduce logging of events in `vcore`.
@@ -89,6 +93,8 @@ This test uses `etcd` as the key/value store using only the container disk as st
     * See `Installation Details / Disable Alarms and PMs`.     
 * Adjust the `etcd` cluster configuration
     * See `Installation Details / Optimize Etcd cluster`.
+
+---
 
 #### 3.1.2 Deployed containers
 
@@ -117,22 +123,38 @@ This test uses `etcd` as the key/value store using only the container disk as st
     zookeeper3-0                     1/1       Running   0          3m        10.233.102.206   k8s1
 ```
 
+---
+
 #### 3.1.3 Observations
 
 The creation of devices was constant and it gradually depleted the available memory.  The system reached
 saturation after creating `2338` devices and then containers started to degrade.
 
+---
+
 ![Device Creation - etcd no volume](images/device-creation-etcd-no-volume.png)
   
+---
+
 ![VM1 CPU Usage - etcd no volume](images/k8s1-cpu-etcd-no-volume.png)
+
+---
 
 ![VM2 CPU Usage - etcd no volume](images/k8s2-cpu-etcd-no-volume.png)
 
+---
+
 ![VM3 CPU Usage - etcd no volume](images/k8s3-cpu-etcd-no-volume.png)
+
+---
 
 ![VM1 Memory Usage - etcd no volume](images/k8s1-mem-etcd-no-volume.png)
 
+---
+
 ![VM2 Memory Usage - etcd no volume](images/k8s2-mem-etcd-no-volume.png)
+
+---
 
 ![VM3 Memory Usage - etcd no volume](images/k8s3-mem-etcd-no-volume.png)
 
@@ -146,6 +168,8 @@ responding or some other failure occurs and prevents any devices from being adde
 
 This test uses `etcd` as the key/value store along with a persistent volume for storage which is managed by `glusterfs`.
 
+---
+
 #### 3.2.1 Configuration
 
 * Reduce logging of events in `vcore`.
@@ -156,6 +180,8 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
     * See `Installation Details / Optimize Etcd cluster`.
 * Add persistent volume support to `etcd` cluster configuration
     * See `Installation Details / Add Persistent Volume to Etcd Cluster`.
+
+---
 
 #### 3.2.2 Deployed containers
 
@@ -196,17 +222,31 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
 The creation of devices was constant and it gradually depleted the available memory.  The system reached
 saturation after creating `1820` devices and when containers started to degrade.
 
+---
+
 ![Device Creation - etcd no volume](images/device-creation-etcd-w-volume.png)
+
+---
 
 ![VM1 CPU Usage - etcd no volume](images/k8s1-cpu-etcd-w-volume.png)
 
+---
+
 ![VM2 CPU Usage - etcd no volume](images/k8s2-cpu-etcd-w-volume.png)
+
+---
 
 ![VM3 CPU Usage - etcd no volume](images/k8s3-cpu-etcd-w-volume.png)
 
+---
+
 ![VM1 Memory Usage - etcd no volume](images/k8s1-mem-etcd-w-volume.png)
 
+---
+
 ![VM2 Memory Usage - etcd no volume](images/k8s2-mem-etcd-w-volume.png)
+
+---
 
 ![VM3 Memory Usage - etcd no volume](images/k8s3-mem-etcd-w-volume.png)
 
@@ -220,12 +260,16 @@ responding or some other failure occurs and prevents any devices from being adde
 
 This test uses `consul` as the key/value store along with a local volume (on vm) for storage.
 
+---
+
 #### 3.3.1 Configuration
 
 * Reduce logging of events in `vcore`.
     * See `Installation Details / Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
     * See `Installation Details / Disable Alarms and PMs`.     
+
+---
 
 #### 3.3.2 Deployed containers
 
@@ -253,24 +297,40 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
     zookeeper3-0                   1/1       Running   0          11m       10.233.102.194   k8s1
 ```
 
+---
+
 #### 3.3.3 Observations
 
 The creation of devices was constant at the beginning but gradually had larger gaps between creation. This is likely caused
 by the consul db snapshots occurring throughout the execution.  The system started to degrade after creating `1641` devices,
 but containers were re-spawned a few times and the system reached saturation after creating `1854` devices.
 
+---
+
 
 ![Device Creation - consul with volume](images/device-creation-consul-w-volume.png)
 
+---
+
 ![VM1 CPU Usage - consul with volume](images/k8s1-cpu-consul.png)
+
+---
 
 ![VM2 CPU Usage - consul with volume](images/k8s2-cpu-consul.png)
 
+---
+
 ![VM3 CPU Usage - consul with volume](images/k8s3-cpu-consul.png)
+
+---
 
 ![VM1 Memory Usage - consul with volume](images/k8s1-mem-consul.png)
 
+---
+
 ![VM2 Memory Usage - consul with volume](images/k8s2-mem-consul.png)
+
+---
 
 ![VM3 Memory Usage - consul with volume](images/k8s3-mem-consul.png)
 
@@ -286,6 +346,8 @@ by continuously issuing requests to retrieve the device list.
 This test uses `etcd` as the key/value store managed by `etcd-operator` along with a persistent volume for 
 storage managed by `glusterfs`.
 
+---
+
 #### 3.4.1 Configuration
 
 * Reduce logging of events in `vcore`.
@@ -296,6 +358,8 @@ storage managed by `glusterfs`.
     * See `Installation Details / Optimize Etcd cluster`.
 * Add persistent volume support to `etcd` cluster configuration
     * See `Installation Details / Add Persistent Volume to Etcd Cluster`.
+
+---
 
 #### 3.4.2 Deployed containers
 
@@ -324,6 +388,8 @@ storage managed by `glusterfs`.
     zookeeper3-0                     1/1       Running   0          1h        10.233.70.33     k8s3
 ```
 
+---
+
 #### 3.4.3 Observations
 
 The system was stable after creating the devices.  As soon as a VCORE was terminated, the communication
@@ -346,6 +412,8 @@ issuing requests to retrieve the device list.
 This test uses `etcd` as the key/value store managed by `etcd-operator` along with a persistent volume for 
 storage managed by `glusterfs`.
 
+---
+
 #### 3.5.1 Configuration
 
 * Reduce logging of events in `vcore`.
@@ -356,6 +424,8 @@ storage managed by `glusterfs`.
     * See `Installation Details / Optimize Etcd cluster`.
 * Add persistent volume support to `etcd` cluster configuration
     * See `Installation Details / Add Persistent Volume to Etcd Cluster`.
+
+---
 
 #### 3.5.2 Deployed containers
 
@@ -384,12 +454,16 @@ storage managed by `glusterfs`.
     zookeeper3-0                     1/1       Running   0          1h        10.233.70.33     k8s3
 ```
 
+---
+
 #### 3.5.3 Observations
 
 The system was stable after creating the devices.  A VCORE instance was terminated, it re-spawned and started 
 recovering its data from the etcd cluster.  While the recovery was in progress, one of the etcd instance showed 
 a ready status of `0/1` and eventually came back to `1/1` once VCORE reconciled all the data.  During the recovery
 period, requests to the VOLTHA API to retrieve the device list remained unresponsive, but eventually resumed.
+
+---
 
 ![Device List vs VCORE Recovery](images/device-list-vs-vcore-recovery-etcd-w-volume.png)
 
@@ -404,12 +478,16 @@ issuing requests to retrieve the device list.
 
 This test uses `consul` as the key/value store along with a local volume (on vm) for storage.
 
+---
+
 #### 3.6.1 Configuration
 
 * Reduce logging of events in `vcore`.
     * See `Installation Details / Decrease Logging of Events`.    
 * Disable the generation of alarms and performance metrics in `vcore`.  
     * See `Installation Details / Disable Alarms and PMs`.     
+
+---
 
 #### 3.6.2 Deployed containers
 
@@ -437,11 +515,15 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
     zookeeper3-0                   1/1       Running   0          11m       10.233.102.194   k8s1
 ```
 
+---
+
 #### 3.6.3 Observations
 
 The system is stable after creating the devices.  When a VCORE is terminated, the consul cluster remains stable and
 calls to the VOLTHA API to retrieve the list of devices are returning 2/3 of the created devices, which is expected
 with the current design.  The system fully recovers after approximately 2 minutes and all the devices are accounted for.
+
+---
 
 ![Device List vs VCORE Recovery](images/device-list-vs-vcore-recovery-consul-w-volume.png)
   
@@ -457,6 +539,8 @@ transactions.
 This test uses `etcd` as the key/value store managed by `etcd-operator` along with a persistent volume for 
 storage managed by `glusterfs`.
 
+---
+
 #### 3.7.1 Configuration
 
 * Reduce logging of events in `vcore`.
@@ -470,9 +554,13 @@ storage managed by `glusterfs`.
 * Add KV transaction period information.  
     * See `Installation Details / Add Logs for Average KV Transaction Time`.     
 
+---
+
 #### 3.7.2 Observations
 
 The transaction time is quite stable.  It increases slightly and equally for each VCORE instances.
+
+---
 
 ![Etcd Average KV Transaction Time](images/avg-kv-tx-time-etcd-w-volume.png)
 
@@ -487,6 +575,8 @@ transactions.
 
 This test uses `consul` as the key/value store along with a local volume (on vm) for storage.
 
+---
+
 #### 3.8.1 Configuration
 
 * Reduce logging of events in `vcore`.
@@ -496,9 +586,13 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 * Add KV transaction period information.  
     * See `Installation Details / Add Logs for Average KV Transaction Time`.     
    
+---
+
 #### 3.8.2 Observations
 
 The transaction time is quite stable.  It increases slightly and equally for each VCORE instances.
+
+---
 
 ![Consul Average KV Transaction Time](images/avg-kv-tx-time-consul-w-volume.png)
 
@@ -523,12 +617,16 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 
 ## 5. Installation Details
 
+---
+
 ### 5.1 Virtual Environment Installation
 
 The virtual environment was deployed using the [Voltha Kubernetes Playgrounds](https://github.com/ciena/voltha-k8s-playground).
 
 The `voltha-k8s-playground` was chosen for this task, to speed up the process of setting up for the different test
 scenarios.  The playground files were slightly modified to work on a server running the libvirt library.
+
+---
 
 ```
    diff --git a/Vagrantfile b/Vagrantfile
@@ -557,8 +655,12 @@ scenarios.  The playground files were slightly modified to work on a server runn
           s.vm.provision :shell, :inline =>"
 ```
 
+---
+
 The playground uses a pre-packaged vagrant box which is not libvirt compatible.  In order to use the bento/ubuntu-16.04 
 vagrant box, the following commands need to be issued.
+
+---
 
 ```
     # Install some plugins
@@ -572,6 +674,8 @@ vagrant box, the following commands need to be issued.
     vagrant mutate bento/ubuntu-16.04 libvirt
 ```
 
+---
+
 Once you have applied the modifications, you can bring up the cluster as per the instructions of the playground.
 
 ---
@@ -582,6 +686,8 @@ Many of the VOLTHA containers were implemented with an option to control the log
 
 If you see the `-v` (e.g. verbose) option used in the VOLTHA manifest, it can be replaced with `-q` (quiet) to inform
 the container to only log error events.  Below is an example to reduce logging in `vcore`.
+
+---
 
 ```
     diff --git a/k8s/vcore_for_etcd.yml b/k8s/vcore_for_etcd.yml
@@ -605,6 +711,8 @@ the container to only log error events.  Below is an example to reduce logging i
 
 In order to reduce IO congestion, the simulated_olt adapter can be modified to exclude the generation of alarms and 
 performance metrics.  This can be done by applying the following changes and re-building the voltha/voltha-voltha image.
+
+---
 
 ```
     diff --git a/voltha/adapters/simulated_olt/simulated_olt.py b/voltha/adapters/simulated_olt/simulated_olt.py
@@ -632,6 +740,8 @@ The following items need to be applied to ensure a proper deployment and avoid p
 * Internal quota set to 6GB instead of the default 2GB.
 * Retain an unlimited set of WAL files
 * Perform compaction every 10 minutes
+
+---
 
 ```
     diff --git a/k8s/operator/etcd/etcd_cluster.yml b/k8s/operator/etcd/etcd_cluster.yml
@@ -664,6 +774,8 @@ The virtual cluster should already have allocated storage as per the instruction
 `Installation Details / Virtual Environment Installation`.  You can verify if your system was properly configured by issuing 
 the following command.
 
+---
+
 ```
     vagrant@k8s1:~$ sudo fdisk -l /dev/vda
     Disk /dev/vda: 50 GiB, 53687091200 bytes, 104857600 sectors
@@ -672,6 +784,8 @@ the following command.
     I/O size (minimum/optimal): 512 bytes / 512 bytes
 ```
 
+---
+
 
 * You first need to wipe disks (just to be sure).
 
@@ -679,13 +793,19 @@ the following command.
     cd /vagrant && ansible kube-node -a "wipefs -af /dev/vda" -b --become-user=root -i kubespray/inventory/voltha/hosts.ini
 ```
 
+---
+
 * Load the `dm_thin_pool` linux module
 
 ```
     cd /vagrant && ansible kube-node -a "modprobe dm_thin_pool" -b --become-user=root -i kubespray/inventory/voltha/hosts.ini
 ```
 
+---
+
 NOTE: The module availability will not survive a reboot.  You can make the change persistent by adding `dm_thin_pool` to /etc/modules
+
+---
 
 * Install the `glusterfs` client on each virtual machine
 ```
@@ -701,11 +821,15 @@ NOTE: The module availability will not survive a reboot.  You can make the chang
         -b --become-user=root -i kubespray/inventory/voltha/hosts.ini
 ```
 
+---
+
 * Clone the `gluster/gluster-kubernetes` repository
 
 ```
     cd /vagrant && git clone https://github.com/gluster/gluster-kubernetes.git
 ```
+
+---
 
 * Create a topology file under /vagrant/gluster-kubernetes/deploy/topology.json
 
@@ -768,11 +892,15 @@ NOTE: The module availability will not survive a reboot.  You can make the chang
     }
 ```
 
+---
+
 * Deploy the `glusterfs` containers
 
 ```
 cd /vagrant/gluster-kubernetes/deploy && ./gk-deploy -gyv --object-capacity 150Gi
 ```
+
+---
 
 * Create storage class based on the output returned by the deploy command
 
@@ -794,11 +922,15 @@ Adjust the `resturl` parameter as per the information returned after deployment.
     EOF
 ```
 
+---
+
 * Apply the storage class
 
 ```
     kubectl apply -f /vagrant/k8s/glusterfs-storage.yml
 ```
+
+---
 
 * Modify the `etcd` cluster manifest as follows
 
@@ -829,6 +961,8 @@ Adjust the `resturl` parameter as per the information returned after deployment.
           storageClassName: glusterfs-storage
 ```
 
+---
+
 * Start the cluster and verify persistent volume allocation
 
 ```
@@ -844,6 +978,8 @@ Adjust the `resturl` parameter as per the information returned after deployment.
 In order to collect details on the average time required to perform a `put` operation to a key/value store,
 the following changes need to be applied to the `voltha` core implementation.  You will need to rebuild the 
 `voltha/voltha-voltha` component.
+
+---
 
 ```
     diff --git a/voltha/core/config/config_backend.py b/voltha/core/config/config_backend.py
