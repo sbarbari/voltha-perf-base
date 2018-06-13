@@ -65,8 +65,6 @@ voltha docker hub repository, aside from the voltha/voltha-voltha image which wa
 
 ### 3 - Test Scenarios
 
-This section describes the different scenarios that have been executed.
-
 * The performance test scripts are executed from the host server, i.e. outside of the virtual cluster, to avoid
 additional strain on the system.  
 * The VOLTHA system is deployed with the minimal set of components required by the individual scenarios
@@ -630,7 +628,7 @@ scenarios.  The playground files were slightly modified to work on a server runn
 
 ---
 
-```
+```diff
    diff --git a/Vagrantfile b/Vagrantfile
    index 84342be..a93abaf 100644
    --- a/Vagrantfile
@@ -691,7 +689,7 @@ the container to only log error events.  Below is an example to reduce logging i
 
 ---
 
-```
+```diff
     diff --git a/k8s/vcore_for_etcd.yml b/k8s/vcore_for_etcd.yml
     index f3703ff..e54aa34 100644
     --- a/k8s/vcore_for_etcd.yml
@@ -716,7 +714,7 @@ performance metrics.  This can be done by applying the following changes and re-
 
 ---
 
-```
+```diff
     diff --git a/voltha/adapters/simulated_olt/simulated_olt.py b/voltha/adapters/simulated_olt/simulated_olt.py
     index 0e6a3ac..bce9c8a 100644
     --- a/voltha/adapters/simulated_olt/simulated_olt.py
@@ -745,7 +743,7 @@ The following items need to be applied to ensure a proper deployment and avoid p
 
 ---
 
-```
+```diff
     diff --git a/k8s/operator/etcd/etcd_cluster.yml b/k8s/operator/etcd/etcd_cluster.yml
     index 0945a78..cdaa0aa 100644
     --- a/k8s/operator/etcd/etcd_cluster.yml
@@ -805,7 +803,7 @@ the following command.
 
 ---
 
-NOTE: The module availability will not survive a reboot.  You can make the change persistent by adding `dm_thin_pool` to /etc/modules
+The module availability will not survive a reboot.  You can make the change persistent by adding `dm_thin_pool` to /etc/modules
 
 ---
 
@@ -983,7 +981,7 @@ the following changes need to be applied to the `voltha` core implementation.  Y
 
 ---
 
-```
+```diff
     diff --git a/voltha/core/config/config_backend.py b/voltha/core/config/config_backend.py
     index 71eeddb7..2659aa1b 100644
     --- a/voltha/core/config/config_backend.py
