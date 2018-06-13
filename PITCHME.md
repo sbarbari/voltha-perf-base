@@ -600,15 +600,19 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 
 ### 4 - General Observations
 
-* An ETCD cluster presents reliability issues when retrieving large amounts of data from a system in a loaded state 
+* An ETCD cluster has issues when retrieving large amounts of data from a system in a loaded state 
     * Such as when a VCORE is re-spawned.
     * ETCD instances seem to be unable to sustain the load and are eventually terminated.
     * ETCD operator is unable to recover lost instances and eventually declares the cluster as being dead.
     * The following issue was raised against the coreos/etcd-operator project
         * https://github.com/coreos/etcd-operator/issues/1968
 
+---
+
 * A Consul cluster is able to sustain the stress of a system in a loaded state.
     * More reliable than the ETCD cluster
+
+---
 
 * A Kubernetes cluster is unstable when running more than one master.
     * We need to investigate the stability when running master nodes independently from worker nodes.
@@ -619,7 +623,7 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 
 ---
 
-#### 5.1 - irtual Environment Installation
+#### 5.1 - Virtual Environment Installation
 
 The virtual environment was deployed using the [Voltha Kubernetes Playgrounds](https://github.com/ciena/voltha-k8s-playground).
 
