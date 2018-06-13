@@ -26,7 +26,7 @@ voltha docker hub repository, aside from the voltha/voltha-voltha image which wa
 
 ---
 
-```
+```console
     voltha/voltha-ponsim                                             v1.3 
     voltha/voltha-tester                                             v1.3
     voltha/voltha-onos                                               v1.3
@@ -96,7 +96,7 @@ This test uses `etcd` as the key/value store using only the container disk as st
 
 #### 3.1.2 - Deployed containers
 
-```
+```console
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
     etcd-7b57x4z7mp                  1/1       Running   0          48m       10.233.70.7      k8s3
     etcd-9gd46fjqvd                  1/1       Running   0          48m       10.233.68.12     k8s2
@@ -183,7 +183,7 @@ This test uses `etcd` as the key/value store along with a persistent volume for 
 
 #### 3.2.2 - Deployed containers
 
-```
+```console
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
     etcd-k7blcdbx85                  1/1       Running   0          1h        10.233.70.40     k8s3
     etcd-npln6dnfbg                  1/1       Running   0          1h        10.233.102.221   k8s1
@@ -273,7 +273,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 #### 3.3.2 - Deployed containers
 
-```
+```console
     NAME                           READY     STATUS    RESTARTS   AGE       IP               NODE
     consul-0                       1/1       Running   0          10m       10.233.68.11     k8s2
     consul-1                       1/1       Running   0          6m        10.233.102.201   k8s1
@@ -363,7 +363,7 @@ storage managed by `glusterfs`.
 
 #### 3.4.2 - Deployed containers
 
-```
+```console
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
     etcd-k7blcdbx85                  1/1       Running   0          1h        10.233.70.40     k8s3
     etcd-npln6dnfbg                  1/1       Running   0          1h        10.233.102.221   k8s1
@@ -429,7 +429,7 @@ storage managed by `glusterfs`.
 
 #### 3.5.2 - Deployed containers
 
-```
+```console
     NAME                             READY     STATUS    RESTARTS   AGE       IP               NODE
     etcd-k7blcdbx85                  1/1       Running   0          1h        10.233.70.40     k8s3
     etcd-npln6dnfbg                  1/1       Running   0          1h        10.233.102.221   k8s1
@@ -491,7 +491,7 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 
 #### 3.6.2 - Deployed containers
 
-```
+```console
     NAME                           READY     STATUS    RESTARTS   AGE       IP               NODE
     consul-0                       1/1       Running   0          10m       10.233.68.11     k8s2
     consul-1                       1/1       Running   0          6m        10.233.102.201   k8s1
@@ -662,7 +662,7 @@ vagrant box, the following commands need to be issued.
 
 ---
 
-```
+```console
     # Install some plugins
     
     vagrant plugin install vagrant-libvirt
@@ -776,7 +776,7 @@ the following command.
 
 ---
 
-```
+```console
     vagrant@k8s1:~$ sudo fdisk -l /dev/vda
     Disk /dev/vda: 50 GiB, 53687091200 bytes, 104857600 sectors
     Units: sectors of 1 * 512 = 512 bytes
@@ -797,7 +797,7 @@ the following command.
 
 * Load the `dm_thin_pool` linux module
 
-```
+```console
     cd /vagrant && ansible kube-node -a "modprobe dm_thin_pool" -b --become-user=root -i kubespray/inventory/voltha/hosts.ini
 ```
 
@@ -808,7 +808,7 @@ The module availability will not survive a reboot.  You can make the change pers
 ---
 
 * Install the `glusterfs` client on each virtual machine
-```
+```console
     cd /vagrant
     
     ansible kube-node -a "add-apt-repository ppa:gluster/glusterfs-3.12" \
@@ -825,7 +825,7 @@ The module availability will not survive a reboot.  You can make the change pers
 
 * Clone the `gluster/gluster-kubernetes` repository
 
-```
+```console
     cd /vagrant && git clone https://github.com/gluster/gluster-kubernetes.git
 ```
 
@@ -833,7 +833,7 @@ The module availability will not survive a reboot.  You can make the change pers
 
 * Create a topology file under /vagrant/gluster-kubernetes/deploy/topology.json
 
-```
+```json
     {
       "clusters": [
         {
@@ -896,7 +896,7 @@ The module availability will not survive a reboot.  You can make the change pers
 
 * Deploy the `glusterfs` containers
 
-```
+```console
 cd /vagrant/gluster-kubernetes/deploy && ./gk-deploy -gyv --object-capacity 150Gi
 ```
 
@@ -906,7 +906,7 @@ cd /vagrant/gluster-kubernetes/deploy && ./gk-deploy -gyv --object-capacity 150G
 
 Adjust the `resturl` parameter as per the information returned after deployment.
 
-```
+```yaml
     cat <<EOF >> /vagrant/k8s/glusterfs-storage.yml
     apiVersion: storage.k8s.io/v1beta1
     kind: StorageClass
@@ -926,7 +926,7 @@ Adjust the `resturl` parameter as per the information returned after deployment.
 
 * Apply the storage class
 
-```
+```console
     kubectl apply -f /vagrant/k8s/glusterfs-storage.yml
 ```
 
@@ -934,7 +934,7 @@ Adjust the `resturl` parameter as per the information returned after deployment.
 
 * Modify the `etcd` cluster manifest as follows
 
-```
+```yaml
     apiVersion: "etcd.database.coreos.com/v1beta2"
     kind: "EtcdCluster"
     metadata:
@@ -965,7 +965,7 @@ Adjust the `resturl` parameter as per the information returned after deployment.
 
 * Start the cluster and verify persistent volume allocation
 
-```
+```console
     kubectl apply -f /vagrant/k8s/operator/etcd_cluster.yml
     
     kubectl -n voltha get pvc
