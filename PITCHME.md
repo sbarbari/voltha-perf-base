@@ -1,12 +1,3 @@
----
-title: "VOLTHA 1.3 Performance Baseline"
-author: sbarbari@ciena.com
-date: 2018-06-06
-titlepage: true
-...
-
-\pagebreak
-
 ## 1. Overview
 
 This document provides information on performance tests conducted on the VOLTHA 1.3 platform.
@@ -19,10 +10,9 @@ All virtual machines are deployed on a single physical server and the installati
 the voltha-k8s-playground (see `Installation Details / Virtual Environment Installation` for more details).
 The following diagram describes the layout used for the test environment.
 
-\pagebreak
+---
 
 ![Performance Test Environment](images/perf-test-layout.png)
-\ 
 
 ### 2.1 Container images
 
@@ -66,7 +56,7 @@ voltha docker hub repository, aside from the voltha/voltha-voltha image which wa
     gcr.io/google_containers/pause-amd64                             3.0
 ```  
 
-\pagebreak
+---
 
 ## 3. Test Scenarios
 
@@ -81,7 +71,7 @@ additional strain on the system.
 
 * Any additional settings will be described in the individual scenarios.
     
-\pagebreak
+---
 
 ### 3.1 Scenario A: Saturation point of a system with ETCD key/value store
 
@@ -133,27 +123,20 @@ The creation of devices was constant and it gradually depleted the available mem
 saturation after creating `2338` devices and then containers started to degrade.
 
 ![Device Creation - etcd no volume](images/device-creation-etcd-no-volume.png)
-\ 
   
 ![VM1 CPU Usage - etcd no volume](images/k8s1-cpu-etcd-no-volume.png)
-\ 
 
 ![VM2 CPU Usage - etcd no volume](images/k8s2-cpu-etcd-no-volume.png)
-\ 
 
 ![VM3 CPU Usage - etcd no volume](images/k8s3-cpu-etcd-no-volume.png)
-\ 
 
 ![VM1 Memory Usage - etcd no volume](images/k8s1-mem-etcd-no-volume.png)
-\ 
 
 ![VM2 Memory Usage - etcd no volume](images/k8s2-mem-etcd-no-volume.png)
-\ 
 
 ![VM3 Memory Usage - etcd no volume](images/k8s3-mem-etcd-no-volume.png)
-\ 
 
-\pagebreak
+---
 
 ### 3.2 Scenario B: Saturation point of a system with ETCD key/value store + persistent volume
 
@@ -214,27 +197,20 @@ The creation of devices was constant and it gradually depleted the available mem
 saturation after creating `1820` devices and when containers started to degrade.
 
 ![Device Creation - etcd no volume](images/device-creation-etcd-w-volume.png)
-\ 
 
 ![VM1 CPU Usage - etcd no volume](images/k8s1-cpu-etcd-w-volume.png)
-\ 
 
 ![VM2 CPU Usage - etcd no volume](images/k8s2-cpu-etcd-w-volume.png)
-\ 
 
 ![VM3 CPU Usage - etcd no volume](images/k8s3-cpu-etcd-w-volume.png)
-\ 
 
 ![VM1 Memory Usage - etcd no volume](images/k8s1-mem-etcd-w-volume.png)
-\ 
 
 ![VM2 Memory Usage - etcd no volume](images/k8s2-mem-etcd-w-volume.png)
-\ 
 
 ![VM3 Memory Usage - etcd no volume](images/k8s3-mem-etcd-w-volume.png)
-\ 
 
-\pagebreak
+---
 
 ### 3.3 Scenario C: Saturation point of a system with Consul key/value store
 
@@ -285,27 +261,20 @@ but containers were re-spawned a few times and the system reached saturation aft
 
 
 ![Device Creation - consul with volume](images/device-creation-consul-w-volume.png)
-\ 
 
 ![VM1 CPU Usage - consul with volume](images/k8s1-cpu-consul.png)
-\ 
 
 ![VM2 CPU Usage - consul with volume](images/k8s2-cpu-consul.png)
-\ 
 
 ![VM3 CPU Usage - consul with volume](images/k8s3-cpu-consul.png)
-\ 
 
 ![VM1 Memory Usage - consul with volume](images/k8s1-mem-consul.png)
-\ 
 
 ![VM2 Memory Usage - consul with volume](images/k8s2-mem-consul.png)
-\ 
 
 ![VM3 Memory Usage - consul with volume](images/k8s3-mem-consul.png)
-\ 
 
-\pagebreak
+---
 
 ### 3.4 Scenario D: Recovery of VCORE on a system at 80% loaded state (ETCD & PV)
 
@@ -365,7 +334,7 @@ themselves and eventually quorum is lost.
 This reported issue [coreos/etcd-operator #1323](https://github.com/coreos/etcd-operator/issues/1323) may explain part 
 of the behaviour that we are experiencing.
 
-\pagebreak
+---
 
 ### 3.5 Scenario E: Recovery of VCORE on a system at 60% loaded state (ETCD & PV)
 
@@ -423,9 +392,8 @@ a ready status of `0/1` and eventually came back to `1/1` once VCORE reconciled 
 period, requests to the VOLTHA API to retrieve the device list remained unresponsive, but eventually resumed.
 
 ![Device List vs VCORE Recovery](images/device-list-vs-vcore-recovery-etcd-w-volume.png)
-\ 
 
-\pagebreak
+---
 
 ### 3.6 Scenario F: Recovery of VCORE on a system at 80% loaded state (Consul)
 
@@ -476,9 +444,8 @@ calls to the VOLTHA API to retrieve the list of devices are returning 2/3 of the
 with the current design.  The system fully recovers after approximately 2 minutes and all the devices are accounted for.
 
 ![Device List vs VCORE Recovery](images/device-list-vs-vcore-recovery-consul-w-volume.png)
-\ 
   
-\pagebreak
+---
 
 ### 3.7 Scenario G: Average KV Transaction Period (ETCD & PV)
 
@@ -508,9 +475,8 @@ storage managed by `glusterfs`.
 The transaction time is quite stable.  It increases slightly and equally for each VCORE instances.
 
 ![Etcd Average KV Transaction Time](images/avg-kv-tx-time-etcd-w-volume.png)
-\ 
 
-\pagebreak
+---
 
 ### 3.8 Scenario H: Average KV Transaction Period (Consul)
 
@@ -535,9 +501,8 @@ This test uses `consul` as the key/value store along with a local volume (on vm)
 The transaction time is quite stable.  It increases slightly and equally for each VCORE instances.
 
 ![Consul Average KV Transaction Time](images/avg-kv-tx-time-consul-w-volume.png)
-\ 
 
-\pagebreak
+---
 
 ## 4. General Observations
 
@@ -554,7 +519,7 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 * A Kubernetes cluster is unstable when running more than one master.
     * We need to investigate the stability when running master nodes independently from worker nodes.
     
-\pagebreak
+---
 
 ## 5. Installation Details
 
@@ -609,7 +574,7 @@ vagrant box, the following commands need to be issued.
 
 Once you have applied the modifications, you can bring up the cluster as per the instructions of the playground.
 
-\pagebreak
+---
 
 ### 5.2 Decrease Logging of Events
 
@@ -634,7 +599,7 @@ the container to only log error events.  Below is an example to reduce logging i
                 - "--rest-port=8880"
 ```
 
-\pagebreak
+---
 
 ### 5.3 Disable Alarms and Performance Metrics
 
@@ -657,7 +622,7 @@ performance metrics.  This can be done by applying the following changes and re-
     +       #self.start_alarm_simulation(device.id)    
 ```
 
-\pagebreak
+---
 
 ### 5.4 Optimize Etcd Cluster
 
@@ -686,7 +651,7 @@ The following items need to be applied to ensure a proper deployment and avoid p
     +        value: "10m"
 ```
 
-\pagebreak
+---
 
 ### 5.5 Add Persistent Volume to Etcd Cluster
 
@@ -872,7 +837,7 @@ Adjust the `resturl` parameter as per the information returned after deployment.
     kubectl -n voltha get pvc
 ```
 
-\pagebreak
+---
 
 ### 5.6 Add Logs for Average KV Transaction Time
 
