@@ -1,4 +1,4 @@
-## 1 - Overview
+### 1 - Overview
 
 This document provides information on performance tests conducted on the VOLTHA 1.3 platform.
 
@@ -6,7 +6,7 @@ The results of the tests will be used as a capability baseline for future releas
 
 ---
 
-## 2 - Test Environment
+### 2 - Test Environment
 
 All virtual machines are deployed on a single physical server and the installation is done using a modified instance of 
 the voltha-k8s-playground (see `5.1 Virtual Environment Installation` for more details).
@@ -18,7 +18,7 @@ The following diagram describes the layout used for the test environment.
 
 ---
 
-### 2.1 - Container images
+#### 2.1 - Container images
 
 The following packages were used to perform the different test scenarios.  All VOLTHA images were retrieved from the 
 voltha docker hub repository, aside from the voltha/voltha-voltha image which was modified as explained in
@@ -63,7 +63,7 @@ voltha docker hub repository, aside from the voltha/voltha-voltha image which wa
 
 ---
 
-## 3 - Test Scenarios
+### 3 - Test Scenarios
 
 This section describes the different scenarios that have been executed.
 
@@ -75,7 +75,7 @@ additional strain on the system.
     
 ---
 
-### 3.1 - Scenario A: Saturation point of a system with ETCD 
+#### 3.1 - Scenario A: Saturation point of a system with ETCD 
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -160,7 +160,7 @@ saturation after creating `2338` devices and then containers started to degrade.
 
 ---
 
-### 3.2 - Scenario B: Saturation point of a system with ETCD & PV
+#### 3.2 - Scenario B: Saturation point of a system with ETCD & PV
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -254,7 +254,7 @@ saturation after creating `1820` devices and when containers started to degrade.
 
 ---
 
-### 3.3 - Scenario C: Saturation point of a system with Consul
+#### 3.3 - Scenario C: Saturation point of a system with Consul
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment until it reaches 
 the saturation point, i.e. the maximum number of devices that the environment can support until the system stops 
@@ -338,7 +338,7 @@ but containers were re-spawned a few times and the system reached saturation aft
 
 ---
 
-### 3.4 - Scenario D: Recovery of VCORE with a 80% loaded state (ETCD & PV)
+#### 3.4 - Scenario D: Recovery of VCORE with a 80% loaded state (ETCD & PV)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a 80% loaded state__, i.e. __80%__ of the saturation point.  Once the system has reached the loaded state, a 
@@ -404,7 +404,7 @@ of the behaviour that we are experiencing.
 
 ---
 
-### 3.5 - Scenario E: Recovery of VCORE with a 60% loaded state (ETCD & PV)
+#### 3.5 - Scenario E: Recovery of VCORE with a 60% loaded state (ETCD & PV)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a 60% loaded state__, i.e. __60%__ of the saturation point.  Once the system has reached the loaded state, a __non-leader
@@ -471,7 +471,7 @@ period, requests to the VOLTHA API to retrieve the device list remained unrespon
 
 ---
 
-### 3.6 - Scenario F: Recovery of VCORE with a 80% loaded state (Consul)
+#### 3.6 - Scenario F: Recovery of VCORE with a 80% loaded state (Consul)
 
 This test __creates and enables simulated_olt__ devices against a VOLTHA deployment __until it reaches 
 a loaded state__, i.e. __80%__ of the saturation point.  Once the system has reached the loaded state, a __non-leader
@@ -531,7 +531,7 @@ with the current design.  The system fully recovers after approximately 2 minute
   
 ---
 
-### 3.7 - Scenario G: Average KV Transaction Period (ETCD & PV)
+#### 3.7 - Scenario G: Average KV Transaction Period (ETCD & PV)
 
 This test creates and enables simulated_olt devices against a VOLTHA deployment until it reaches 
 a 80% loaded state, i.e. 80% of the saturation point, and calculates the average time required to perform
@@ -568,7 +568,7 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 
 ---
 
-### 3.8 - Scenario H: Average KV Transaction Period (Consul)
+#### 3.8 - Scenario H: Average KV Transaction Period (Consul)
 
 This test creates and enables simulated_olt devices against a VOLTHA deployment until it reaches 
 a 80% loaded state, i.e. 80% of the saturation point, and calculates the average time required to perform
@@ -600,7 +600,7 @@ The transaction time is quite stable.  It increases slightly and equally for eac
 
 ---
 
-## 4 - General Observations
+### 4 - General Observations
 
 * An ETCD cluster presents reliability issues when retrieving large amounts of data from a system in a loaded state 
     * Such as when a VCORE is re-spawned.
@@ -617,11 +617,11 @@ The transaction time is quite stable.  It increases slightly and equally for eac
     
 ---
 
-## 5 - Installation Details
+### 5 - Installation Details
 
 ---
 
-### 5.1 - irtual Environment Installation
+#### 5.1 - irtual Environment Installation
 
 The virtual environment was deployed using the [Voltha Kubernetes Playgrounds](https://github.com/ciena/voltha-k8s-playground).
 
@@ -682,7 +682,7 @@ Once you have applied the modifications, you can bring up the cluster as per the
 
 ---
 
-### 5.2 - Decrease Logging of Events
+#### 5.2 - Decrease Logging of Events
 
 Many of the VOLTHA containers were implemented with an option to control the logging of events.
 
@@ -709,7 +709,7 @@ the container to only log error events.  Below is an example to reduce logging i
 
 ---
 
-### 5.3 - Disable Alarms and Performance Metrics
+#### 5.3 - Disable Alarms and Performance Metrics
 
 In order to reduce IO congestion, the simulated_olt adapter can be modified to exclude the generation of alarms and 
 performance metrics.  This can be done by applying the following changes and re-building the voltha/voltha-voltha image.
@@ -734,7 +734,7 @@ performance metrics.  This can be done by applying the following changes and re-
 
 ---
 
-### 5.4 - Optimize Etcd Cluster
+#### 5.4 - Optimize Etcd Cluster
 
 The default configuration of an `etcd` container instance is not optimized to achieve the full potential of the system.
 The following items need to be applied to ensure a proper deployment and avoid premature failures of the etcd cluster.
@@ -765,7 +765,7 @@ The following items need to be applied to ensure a proper deployment and avoid p
 
 ---
 
-### 5.5 - Add Persistent Volume to Etcd Cluster
+#### 5.5 - Add Persistent Volume to Etcd Cluster
 
 Adding persistent volume support to an etcd cluster requires some configurations of your virtual cluster.
 
@@ -975,7 +975,7 @@ Adjust the `resturl` parameter as per the information returned after deployment.
 
 ---
 
-### 5.6 - Add Logs for Average KV Transaction Time
+#### 5.6 - Add Logs for Average KV Transaction Time
 
 In order to collect details on the average time required to perform a `put` operation to a key/value store,
 the following changes need to be applied to the `voltha` core implementation.  You will need to rebuild the 
